@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MintFlow - AI Document Enhancement Co-pilot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .cta-button {
+            background: #667eea;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0 4rem;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-benefits {
+            text-align: left;
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .feature-benefits ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-benefits li {
+            padding: 0.5rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .feature-benefits li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background: #f8f9fa;
+            padding: 6rem 0;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .step p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 6rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Copilot Animation */
+        .copilot-demo {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .document-preview {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            position: relative;
+            min-height: 300px;
+        }
+
+        .document-content {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .document-content .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 4px;
+            border-radius: 3px;
+            animation: highlightPulse 2s ease-in-out infinite;
+        }
+
+        .sidebar-demo {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+        }
+
+        .ai-thinking {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: thinkingAppear 3s ease-in-out infinite;
+        }
+
+        .thinking-dots {
+            display: flex;
+            gap: 3px;
+        }
+
+        .thinking-dot {
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            animation: thinkingBounce 1.4s ease-in-out infinite both;
+        }
+
+        .thinking-dot:nth-child(1) { animation-delay: -0.32s; }
+        .thinking-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        .ai-suggestion {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: suggestionAppear 4s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+
+        .suggestion-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .suggestion-action {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+
+        .suggestion-action:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .visualization-preview {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            opacity: 0;
+            animation: vizAppear 5s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        .viz-placeholder {
+            background: rgba(255, 255, 255, 0.2);
+            min-height: 120px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
+
+        .bulleted-section {
+            background: transparent;
+            transition: all 0.5s ease;
+            border-radius: 8px;
+            padding: 0.5rem;
+        }
+
+        .bulleted-section.highlighted {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            box-shadow: 0 4px 15px rgba(168, 237, 234, 0.3);
+            transform: scale(1.02);
+        }
+
+        .bulleted-section p {
+            margin: 0.3rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .flowchart-concept {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .flow-start {
+            background: rgba(40, 167, 69, 0.3);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+
+        .flow-arrow {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .flow-decision {
+            background: rgba(255, 193, 7, 0.3);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .flow-branches {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .branch {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.6rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .branch.yes {
+            background: rgba(40, 167, 69, 0.3);
+        }
+
+        .branch.no {
+            background: rgba(220, 53, 69, 0.3);
+        }
+
+        /* Animation Keyframes */
+        @keyframes highlightPulse {
+            0%, 100% { background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%); }
+            50% { background: linear-gradient(120deg, #ffd89b 0%, #19547b 100%); }
+        }
+
+        @keyframes thinkingAppear {
+            0%, 20% { opacity: 0; transform: translateY(10px); }
+            30%, 80% { opacity: 1; transform: translateY(0); }
+            90%, 100% { opacity: 0; transform: translateY(-10px); }
+        }
+
+        @keyframes thinkingBounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        @keyframes suggestionAppear {
+            0%, 25% { opacity: 0; transform: translateX(20px); }
+            35%, 75% { opacity: 1; transform: translateX(0); }
+            85%, 100% { opacity: 0; transform: translateX(-20px); }
+        }
+
+        @keyframes vizAppear {
+            0%, 40% { opacity: 0; transform: scale(0.8); }
+            50%, 70% { opacity: 1; transform: scale(1); }
+            80%, 100% { opacity: 0; transform: scale(0.8); }
+        }
+
+        /* Waitlist Form */
+        .waitlist-form {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .submit-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            background: rgba(40, 167, 69, 0.2);
+            border: 1px solid rgba(40, 167, 69, 0.5);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .demo-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .copilot-demo {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="#" class="logo">🪙 MintFlow</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#get-started" class="cta-button">Get Started</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="fade-in-up">Transform Your Documents with AI</h1>
+            <p class="subtitle fade-in-up">MintFlow is your intelligent document co-pilot that enhances readability, adds visualizations, and guides in-place improvements</p>
+            <p class="description fade-in-up">Stop the copy-paste nightmare. Work directly in Google Docs with AI-powered suggestions that make your content clearer, more engaging, and easier to understand.</p>
+            <div class="hero-buttons fade-in-up">
+                <a href="#get-started" class="btn-primary">Try MintFlow Free</a>
+                <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Three Powerful Ways to Enhance Your Documents</h2>
+            <p class="section-subtitle">MintFlow brings AI-powered intelligence directly into your Google Docs workflow</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">✏️</span>
+                    <h3>In-Place Text Enhancement</h3>
+                    <p>Refine, simplify, and improve your writing without leaving Google Docs. No more copy-paste between tools.</p>
+                    <div class="feature-benefits">
+                        <ul>
+                            <li>Instant text refinement suggestions</li>
+                            <li>Clarity and simplification recommendations</li>
+                            <li>Grammar and style improvements</li>
+                            <li>One-click apply changes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3>Smart Visualizations</h3>
+                    <p>Automatically detect complex logical flows and generate appropriate diagrams, charts, and tables in-place.</p>
+                    <div class="feature-benefits">
+                        <ul>
+                            <li>Flowcharts for processes</li>
+                            <li>Diagrams for relationships</li>
+                            <li>Tables for structured data</li>
+                            <li>Direct insertion into your document</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🪙</span>
+                    <h3>AI Document Minting</h3>
+                    <p>Let AI analyze your entire document and automatically identify every place that needs improvement or visualization.</p>
+                    <div class="feature-benefits">
+                        <ul>
+                            <li>Complete document analysis</li>
+                            <li>Smart improvement recommendations</li>
+                            <li>Guided enhancement workflow</li>
+                            <li>Transform complex docs into clear content</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Copilot Demo -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">See MintFlow in Action</h2>
+            <p class="section-subtitle">Watch how our AI copilot transforms your documents in real-time</p>
+            
+            <div class="copilot-demo">
+                <div class="demo-container">
+                    <div class="document-preview">
+                        <h4 style="margin-bottom: 1rem; color: #666;">📄 Your Google Doc</h4>
+                        <div class="document-content">
+                            <p>When implementing a <span class="highlight">user authentication system</span>, you need to consider:</p>
+                            <div class="bulleted-section" id="bulletedSection">
+                                <p>• <strong>If user exists:</strong> Validate credentials</p>
+                                <p>• <strong>If credentials valid:</strong> Generate session token</p>
+                                <p>• <strong>If session token valid:</strong> Allow access to dashboard</p>
+                                <p>• <strong>If credentials invalid:</strong> Show error message</p>
+                                <p>• <strong>If user doesn't exist:</strong> Redirect to registration</p>
+                            </div>
+                            <p>This <span class="highlight">decision tree approach</span> ensures secure user management.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-demo">
+                        <h4 style="margin-bottom: 1rem;">🤖 MintFlow Copilot</h4>
+                        
+                        <div class="ai-thinking">
+                            <span>🤔 AI is thinking</span>
+                            <div class="thinking-dots">
+                                <div class="thinking-dot"></div>
+                                <div class="thinking-dot"></div>
+                                <div class="thinking-dot"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="ai-suggestion">
+                            <div class="suggestion-title">💡 Text Enhancement</div>
+                            <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">"user authentication system" could be clearer</p>
+                            <button class="suggestion-action">Apply Suggestion</button>
+                        </div>
+                        
+                        <div class="ai-suggestion">
+                            <div class="suggestion-title">📊 Visualization</div>
+                            <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">This conditional logic needs a flowchart</p>
+                            <button class="suggestion-action" id="createFlowchartBtn">Create Flowchart</button>
+                        </div>
+                        
+                        <div class="visualization-preview" id="flowchartPreview">
+                            <div class="suggestion-title">✨ Generated Flowchart</div>
+                            <div class="viz-placeholder" id="flowchartPlaceholder">
+                                <div class="flowchart-concept">
+                                    <div class="flow-start">Start</div>
+                                    <div class="flow-arrow">↓</div>
+                                    <div class="flow-decision">User exists?</div>
+                                    <div class="flow-branches">
+                                        <div class="branch yes">Yes → Validate</div>
+                                        <div class="branch no">No → Register</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How MintFlow Works</h2>
+            <p class="section-subtitle">Three simple steps to transform your documents</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Install & Open</h3>
+                    <p>Add MintFlow to your Google Docs and open the sidebar. Your document is now ready for AI enhancement.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Choose Your Enhancement</h3>
+                    <p>Select text to refine, request visualizations for complex content, or use "Mint Document" for full AI analysis.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Apply & Enjoy</h3>
+                    <p>Review AI suggestions and apply them directly in your document. Your content is now clearer and more engaging!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="get-started" class="cta-section">
+        <div class="container">
+            <h2>Ready to Transform Your Documents?</h2>
+            <p>Join the waitlist to be among the first to experience AI-powered document enhancement</p>
+            
+            <div class="waitlist-form">
+                <form id="waitlistForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="role">What's your primary role?</label>
+                        <select id="role" name="role" style="width: 100%; padding: 1rem; border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 10px; background: rgba(255, 255, 255, 0.1); color: white; font-size: 1rem;">
+                            <option value="">Select your role</option>
+                            <option value="writer">Writer/Content Creator</option>
+                            <option value="student">Student</option>
+                            <option value="business">Business Professional</option>
+                            <option value="researcher">Researcher</option>
+                            <option value="educator">Educator</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interests">What interests you most about MintFlow?</label>
+                        <textarea id="interests" name="interests" rows="3" placeholder="Tell us what features you're most excited about..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Join the Waitlist</button>
+                </form>
+                
+                <div class="success-message" id="successMessage">
+                    <h3>🎉 Welcome to the waitlist!</h3>
+                    <p>Thank you for your interest in MintFlow. We'll notify you as soon as we're ready to launch!</p>
+                </div>
+            </div>
+            
+            <div class="hero-buttons" style="margin-top: 2rem;">
+                <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 MintFlow. Making documents clearer, one AI suggestion at a time.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards and steps
+        document.querySelectorAll('.feature-card, .step').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Waitlist form handling - Pure frontend, no backend needed
+        document.getElementById('waitlistForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = form.querySelector('.submit-btn');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Joining...';
+            
+            // Simulate processing time
+            setTimeout(() => {
+                const formData = new FormData(form);
+                const data = {
+                    email: formData.get('email'),
+                    name: formData.get('name'),
+                    role: formData.get('role'),
+                    interests: formData.get('interests'),
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Store in localStorage
+                const waitlistData = JSON.parse(localStorage.getItem('mintflow_waitlist') || '[]');
+                waitlistData.push(data);
+                localStorage.setItem('mintflow_waitlist', JSON.stringify(waitlistData));
+                
+                // Log to console for easy access
+                console.log('🎯 New waitlist signup:', data);
+                
+                // Show success message
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                
+                // Optional: Send to Google Analytics or other tracking
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'waitlist_signup', {
+                        'event_category': 'engagement',
+                        'event_label': data.role
+                    });
+                }
+                
+            }, 1000);
+        });
+
+        // Enhanced copilot demo animation
+        let animationCycle = 0;
+        
+        function startCopilotAnimation() {
+            const bulletedSection = document.getElementById('bulletedSection');
+            const createFlowchartBtn = document.getElementById('createFlowchartBtn');
+            const flowchartPreview = document.getElementById('flowchartPreview');
+            
+            // Auto-cycle animation every 6 seconds
+            setInterval(() => {
+                animationCycle++;
+                
+                // Step 1: Highlight bulleted section
+                if (animationCycle % 6 === 1) {
+                    bulletedSection.classList.add('highlighted');
+                    setTimeout(() => {
+                        bulletedSection.classList.remove('highlighted');
+                    }, 2000);
+                }
+                
+                // Step 2: Simulate AI thinking (already handled by CSS animation)
+                
+                // Step 3: Show suggestions (already handled by CSS animation)
+                
+                // Step 4: Auto-trigger flowchart creation
+                if (animationCycle % 6 === 4) {
+                    setTimeout(() => {
+                        createFlowchartBtn.click();
+                    }, 500);
+                }
+                
+            }, 6000);
+        }
+        
+        // Interactive flowchart creation
+        document.getElementById('createFlowchartBtn').addEventListener('click', function() {
+            const bulletedSection = document.getElementById('bulletedSection');
+            const flowchartPreview = document.getElementById('flowchartPreview');
+            const flowchartPlaceholder = document.getElementById('flowchartPlaceholder');
+            
+            // Highlight the bulleted section
+            bulletedSection.classList.add('highlighted');
+            
+            // Show flowchart preview with animation
+            flowchartPreview.style.opacity = '1';
+            flowchartPreview.style.transform = 'scale(1)';
+            
+            // Button feedback
+            this.style.background = 'rgba(40, 167, 69, 0.3)';
+            this.textContent = 'Flowchart Created!';
+            
+            setTimeout(() => {
+                this.style.background = 'rgba(255, 255, 255, 0.2)';
+                this.textContent = 'Create Flowchart';
+            }, 3000);
+        });
+        
+        // Start the animation when page loads
+        setTimeout(startCopilotAnimation, 2000);
+    </script>
+</body>
+</html>
