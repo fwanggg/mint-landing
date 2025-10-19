@@ -1,0 +1,10 @@
+[
+  {
+    "email": "test@example.com",
+    "name": "Test User",
+    "role": "writer",
+    "interests": "Testing the waitlist",
+    "timestamp": "2025-10-15T06:39:54.288Z",
+    "source": "landing_page"
+  }
+]
